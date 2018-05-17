@@ -16,25 +16,34 @@ def init_browser():
 
 def scrape():
     browser = init_browser()
+    max_results_per_city = 100
+    city_search = ['New York', 'San Francisco']
+    job_search = "data analyst"  
 
     url = 'https://www.indeed.com/jobs?q=data+analyst&l=San+Francisco%2C+CA'
     url2 = 'https://www.indeed.com/jobs?q=data+analyst&l=New+York%2C+NY'
 
     browser.visit(url)
-    time.sleep(1)
+    time.sleep(2)
+    positions_SF = []
+    positions_NY = []
+    for i in range(0, 10):
+        time.sleep(5)
+        html = browser.html
+        soup_SF = BeautifulSoup(html, "html.parser")
+        positions_SF.append(scrape_city(soup_SF, "San Francisco"))
+        browser.click_link_by_partial_text('Next')
+    
+    # browser.visit(url2)
+    # time.sleep(2)
+    # for x in range(0, 10):
+    #     time.sleep(2)
+    #     html = browser.html
+    #     soup_NY = BeautifulSoup(html, "html.parser")
+    #     positions_NY.append(scrape_city(soup_NY, "New York"))
+    #     browser.click_link_by_partial_text('Next')
 
-    html = browser.html
-    soup_SF = BeautifulSoup(html, "html.parser")
-    positions_SF = scrape_city(soup_SF,"San Francisco")
-
-    browser.visit(url2)
-    time.sleep(1)
-
-    html = browser.html
-    soup_NY = BeautifulSoup(html, "html.parser")
-    positions_NY = scrape_city(soup_NY, "New York")
-
-    return positions_NY+positions_SF
+    return positions_SF
     
     
 def scrape_city(soup, city):
@@ -44,6 +53,12 @@ def scrape_city(soup, city):
     ls_locations = extract_location_from_result(soup)
     ls_summary = extract_summary_from_result(soup)
     ls_links = extract_link_from_result(soup)
+    
+    # print(f"Titles {len(ls_titles)}")
+    # print(f"Companies {len(ls_companies)}")
+    # print(f"Locations {len(ls_locations)}")
+    # print(f"Summary {len(ls_summary)}")
+    # print(f"Links {len(ls_links)}")
 
     positions = []
     d = {}

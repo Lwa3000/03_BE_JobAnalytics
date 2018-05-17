@@ -24,6 +24,9 @@ def index():
 def scrape():
     positions = mongo.db.dataanalyst
     positions_data = scrape_indeed.scrape()
+    print("Finalizing process..")
+    print(positions_data)
+    print(len(positions_data))
     for item in positions_data:
         positions.update(
             {},
