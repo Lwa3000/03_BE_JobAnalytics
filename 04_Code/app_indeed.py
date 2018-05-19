@@ -7,7 +7,7 @@
 
 from flask import Flask, render_template, jsonify, redirect
 from flask_pymongo import PyMongo
-import scrape_indeed
+import scrape_page
 
 app = Flask(__name__)
 
@@ -22,18 +22,18 @@ def index():
 
 @app.route("/scrape")
 def scrape():
-    positions = mongo.db.dataanalyst
-    positions_data = scrape_indeed.scrape()
+    #positions = mongo.db.dataanalyst
+    positions_data = scrape_page.scrape()
     print("Finalizing process..")
-    print(positions_data)
-    print(len(positions_data))
-    for item in positions_data:
-        positions.update(
-            {},
-            item,
-            upsert=True
-        )
-    return redirect("http://localhost:5000/", code=302)
+   # print(positions_data)
+    #print(len(positions_data))
+    #for item in positions_data:
+     #   positions.update(
+      #      {},
+       #     item,
+         #   upsert=True
+        #)
+    return jsonify(positions_data)
 
 
 if __name__ == "__main__":
