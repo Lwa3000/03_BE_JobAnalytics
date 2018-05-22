@@ -7,7 +7,7 @@ import os
 import numpy as np
 
 def scrape(*args):
-    max_results_city = 130
+    max_results_city = 10
     step = 10
     job_search = "data+analyst"
     if args:
@@ -101,6 +101,25 @@ def scrape_links(url_list):
 def get_dataframe(results):
     jobs_df = pd.DataFrame.from_dict(results)
     jobs_df = jobs_df.dropna(how='any')
-    jobs_df = jobs_df[["title","company", "location","description", "search_city", "link"]]
-    jobs_df.index = np.arange(1, len(jobs_df) + 1)
+    # jobs_df = jobs_df[["title","company", "location","description", "search_city", "link"]]
+    # jobs_df.index = np.arange(1, len(jobs_df) + 1)
     return jobs_df
+
+def get_view2_data(results):
+    # Get data to create plot for view2
+    # added by: Lena Corredor
+    title = [result[0] for result in results]
+    location = [result[1] for result in results]
+    view2=pd.DataFrame({"Title": title, "Location":location})
+
+    print(view2)
+    grouped_view2=view2.groupby("Title")
+    count=grouped_view2.count()
+    total=count["Location"].sum()
+    view2_summary_table = pd.DataFrame({
+        "Count": count["Location"],
+        "Total": total,
+        "Percentage": count["Location"]/total*100
+    })
+    return view2_summary_table
+

@@ -44,6 +44,10 @@ def setup():
 def index():
     return render_template("index.html")
 
+@app.route("/view2")
+def view2display():
+    return render_template("view2.html")
+
 
 @app.route("/scrape")
 def scrape():
@@ -68,6 +72,20 @@ def scrape():
         #)
     return jsonify(positions_data)
 
+@app.route("/api/view2")
+def view2():
+    results = db.session.query(DataAnalyticsJob.title, DataAnalyticsJob.location).all()
+
+    view2_data = scrape_page.get_view2_data(results)
+    # print(view2_data)
+    titles = list(view2_data.index)
+    percentages = list(view2_data["Percentage"])
+    plot2_data = {
+        "labels": titles,
+        "values": percentages,
+        "type": "pie"
+    }
+    return jsonify(plot2_data)
 
 if __name__ == "__main__":
     app.run()
