@@ -72,10 +72,23 @@ def scrape():
         #)
     return jsonify(positions_data)
 
-@app.route("/api/view2")
-def view2():
-    results = db.session.query(DataAnalyticsJob.title, DataAnalyticsJob.location).all()
+@app.route("/api/view2_NY")
+def view2_NY():
+    results = db.session.query(DataAnalyticsJob.title, DataAnalyticsJob.location).filter_by(search_city="New York")
+    view2_data = scrape_page.get_view2_data(results)
+    # print(view2_data)
+    titles = list(view2_data.index)
+    percentages = list(view2_data["Percentage"])
+    plot2_data = {
+        "labels": titles,
+        "values": percentages,
+        "type": "pie"
+    }
+    return jsonify(plot2_data)
 
+@app.route("/api/view2_SF")
+def view2_SF():
+    results = db.session.query(DataAnalyticsJob.title, DataAnalyticsJob.location).filter_by(search_city="San Francisco")
     view2_data = scrape_page.get_view2_data(results)
     # print(view2_data)
     titles = list(view2_data.index)
