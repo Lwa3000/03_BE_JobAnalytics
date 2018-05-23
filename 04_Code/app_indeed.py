@@ -38,6 +38,7 @@ class DataAnalyticsJob(db.Model):
 @app.before_first_request
 def setup():
     # Recreate database each time for demo
+    #commenting part that drops db
     #db.drop_all()
     db.create_all()
 
