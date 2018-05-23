@@ -1,66 +1,352 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Hot Finds</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-</head>
+  <head>
 
-<body>
-  <div class="container">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+    <meta name="description" content="Using webscraping to ">
+    <meta name="author" content="Charles Pontier, Lena Corredor, Sarah Lin, Oscar Castaneda">
 
-    <div class="jumbotron text-center">
-      <h1>Data Analyst positions on Indeed</h1>
-      <p><a class="btn btn-primary btn-lg" href="/scrape" role="button">Get scrape results!</a></p>
-    </div>
+    <title>Project 2 - A Look Into Data Analyst Skills by Region</title>
 
-    <!-- Data Analyst positions -->
-    <div class="row" id="indeed-positions">
-      <div class="col-md-12">
-          <ul style="list-style: none;">
-              {% for pos in positions_1 %}
-              <li> <h4 class="heading">{{positions_1.title}} </h4>
-                <h5 class="heading">{{positions_1.company}} {{positions_1.location}} </h5>
-                <small>{{positions_1.summary}}</small><br/>
-                <small>{{positions_1.link}}</small><br/>
-              </li>
-              {% endfor %}
+    <!-- Bootstrap CSS -->
+    <link href="/static/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="/static/resources/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Cabin:700' rel='stylesheet' type='text/css'>
+
+    <!-- Custom styles for this template -->
+    <link href="/static/resources/css/grayscale.min.css" rel="stylesheet">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  </head>
+
+  <body id="page-top">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+      <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="#page-top">Home</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          Menu
+          <i class="fa fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#about">
+                  Our Group
+                </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#scrape">
+                  Scraper
+                </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#analysis">
+                  Regional Comparison
+                </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#closing">
+                  Conclusions
+                </a>
+            </li>  
           </ul>
-
+        </div>
       </div>
-    </div>
+    </nav>
 
-  </div>
-  <div id="plot"></div>
-    <script>// View 1 Fake chart: Top skills frequency by city
-      var trace1 = {
-          labels: ["beer", "wine", "martini", "margarita",
-              "ice tea", "rum & coke", "mai tai", "gin & tonic"],
-          values: [22.7, 17.1, 9.9, 8.7, 7.2, 6.1, 6.0, 4.6],
-          type: 'pie'
-        };
-        
-        var data = [trace1];
-        
-        var layout = {
-          title: "'Bar' Chart",
-        };
-        
-        Plotly.newPlot("plot", data, layout);
+    <!-- Intro Header -->
+    <header class="masthead">
+      <div class="intro-body">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-8 mx-auto">
+              <h1 class="brand-heading">Skills in Demand</h1>
+              <p class="intro-text">An analysis into the most requested Data Analyst skills by region.
+              </p>
+                
+              <a href="#about" class="btn btn-circle js-scroll-trigger">
+                <i class="fa fa-angle-double-down animated"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
 
+    <!-- Group Section -->
+    <section id="about" class="content-section text-center">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+              <h2>The Team</h2>
+              <style>
+                html {
+                  box-sizing: border-box;
+                }
+                *, *:before, *:after {
+                  box-sizing: inherit;
+                }
+                .column {
+                  float: left;
+                  width: 20%;
+                  margin-bottom: 16px;
+                  padding: 0 8px;
+                }
+                @media screen and (max-width: 650px) {
+                  .column {
+                    width: 100%;
+                    display: block;
+                  }
+                }
+                .card {
+                  box-shadow: 0 4px 8px 0 rgba(255, 255, 255, 0.2);
+                  background: rgba(255, 255, 255, 0.1);
+                }
+                .card.container {
+                  padding: 0 16px;
+                  background: rgba(255, 255, 255, 0.7);
+                }
+                .container::after, .row::after {
+                  content: "";
+                  clear: both;
+                  display: table;
+                }
+                .title {
+                  color: white;
+                  font-family: 'Cabin', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+                }
+                .button {
+                  border: none;
+                  outline: 0;
+                  display: inline-block;
+                  padding: 8px;
+                  color: white;
+                  background-color: #000;
+                  text-align: center;
+                  cursor: pointer;
+                  width: 100%;
+                }
+                .btn:hover {
+                  background-color: #555;
+                }
+                </style>
+              <div class="row">
+                  <div class="column">
+                    <div class="card">
+                      <img class"card" src="/static/resources/img/Lena.jpg" style="width:100%">
+                      <div class="card.container">
+                        <br>
+                        <h2>Lena</h2>
+                        <p class="title">Lead</p>
+                        <p><button class="btn">Contact</button></p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="column">
+                    <div class="card">
+                      <img src="/static/resources/img/Oscar.jpg" style="width:100%">
+                      <div class="card.container">
+                        <br>
+                        <h2>Oscar</h2>
+                        <p class="title">Databases</p>
+                        <p><button class="btn">Contact</button></p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="column">
+                    <div class="card">
+                      <img src="/static/resources/img/Sarah.jpg" style="width:100%">
+                      <div class="card.container">
+                        <br>
+                        <h2>Sarah</h2>
+                        <p class="title">Visualization</p>
+                        <p><button class="btn">Contact</button></p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="column">
+                      <div class="card">
+                        <img src="/static/resources/img/Dolly.jpg" style="width:100%">
+                        <div class="card.container">
+                          <br>
+                          <h2>Dolly</h2>
+                          <p class="title">Visualization</p>
+                          <p><button class="btn">Contact</button></p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="column">
+                        <div class="card">
+                          <img src="/static/resources/img/Charles.jpg" style="width:100%">
+                          <div class="card.container">
+                            <br>
+                            <h2>Charles</h2>
+                            <p class="title">Web</p>
+                            <p><button class="btn">Contact</button></p>
+                          </div>
+                        </div>
+                      </div>
+                </div>                
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Scrape Section -->
+    <section id="scrape" class="text-center">
+      <div class="container">
+
+        <div class="jumbotron text-center">
+          <h1>Data Analyst positions on Indeed</h1>
+          <p><a class="btn btn-primary btn-lg" href="/scrape" role="button">Get scrape results!</a></p>
+        </div>
+    
+        <!-- Data Analyst positions -->
+        <div class="row" id="indeed-positions">
+          <div class="col-md-12">
+              <ul style="list-style: none;">
+                  {% for pos in positions_1 %}
+                  <li> <h4 class="heading">{{positions_1.title}} </h4>
+                    <h5 class="heading">{{positions_1.company}} {{positions_1.location}} </h5>
+                    <small>{{positions_1.summary}}</small><br/>
+                    <small>{{positions_1.link}}</small><br/>
+                  </li>
+                  {% endfor %}
+              </ul>
+    
+          </div>
+        </div>
+    
+      </div>
+    </section>
+
+    <!-- Analysis Section -->
+    <section id="analysis" class="content-section text-center">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 mx-auto">
+            <h2>Regional Comparisons</h2>
+            <div class="centered" id="barplot">
+                <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+                <!-- <script>
+                  var trace1 = {
+                    x: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                    y: [20, 14, 25, 16, 18, 22, 19, 15, 12, 16, 14, 17],
+                    type: 'bar',
+                    name: 'New York',
+                    marker: {
+                      color: 'rgb(49,130,189)',
+                      opacity: 1,
+                    }
+                  };
+  
+                  var trace2 = {
+                    x: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                    y: [19, 14, 22, 14, 16, 19, 15, 14, 10, 12, 12, 16],
+                    type: 'bar',
+                    name: 'San Francisco',
+                    marker: {
+                      color: 'rgb(204,204,204)',
+                      opacity: 1
+                    }
+                  };
+  
+                  var data = [trace1, trace2];
+  
+                  var layout = {
+                    autosize: true,
+                    align: "center",
+                    paper_bgcolor: 'rgba(0,0,0,0)',
+                    plot_bgcolor: 'rgba(0,0,0,0)',
+                    xaxis: {
+                      tickangle: -45
+                    },
+                    barmode: 'group',
+                    margin: {
+                      l: 50,
+                      r: 50,
+                      b: 50,
+                      t: 50,
+                      pad: 10
+                    },
+                  };
+  
+                  Plotly.newPlot('barchart', data, layout);
+                </script> -->
+              </div>
+              <br>
+            <h2>Top Skill Frequency by City</h2>
+            <div id="plot">
+              <script>// View 1 Fake chart: Top skills frequency by city
+                var trace1 = {
+                  labels: ["beer", "wine", "martini", "margarita",
+                          "ice tea", "rum & coke", "mai tai", "gin & tonic"],
+                  values: [22.7, 17.1, 9.9, 8.7, 7.2, 6.1, 6.0, 4.6],
+                  type: 'pie'
+                  };
         
+                var data = [trace1];
         
-        </script>
-        <div id="barplot"></div>
-        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-        <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+                var layout = {
+                    autosize: true,
+                    align: "center",
+                    paper_bgcolor: 'rgba(0,0,0,0)',
+                    plot_bgcolor: 'rgba(0,0,0,0)',
+                    xaxis: {
+                      tickangle: -45
+                    },
+                    barmode: 'group',
+                    margin: {
+                      l: 50,
+                      r: 50,
+                      b: 50,
+                      t: 50,
+                      pad: 10
+                    },
+                  };
+        
+                Plotly.newPlot("plot", data, layout);
+              </script>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
 
-</body>
+    <!-- Shout Out Section -->
+    <div id="closing" class="content-section text-center">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 mx-auto">
+            <h2>Analysis</h2>
+          </div>
+        </div>
+      </div>
+     </div>
+    <!-- Footer -->
+    <footer>
+      <div class="container text-center">
+        <p>Copyright Dolly Ye, Charles Pontier, Lena Corredor, Sarah Lin, Oscar Castaneda 2018</p>
+      </div>
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="/static/resources/vendor/jquery/jquery.min.js"></script>
+    <script src="/static/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="/static/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for this template -->
+    <script src="/static/resources/css/js/grayscale.min.js"></script>
+
+  </body>
 
 </html>
-

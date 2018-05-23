@@ -39,7 +39,7 @@ class DataAnalyticsJob(db.Model):
 @app.before_first_request
 def setup():
     # Recreate database each time for demo
-    db.drop_all()
+    # db.drop_all()
     db.create_all()
 
 
@@ -85,6 +85,8 @@ def data():
     city1 = "New York"
     city2 = "San Francisco"
     
+    # results = db.session.query(DataAnalyticsJob.search_city, DataAnalyticsJob.description).all()
+
     results = db.session.query(DataAnalyticsJob.search_city, DataAnalyticsJob.description).all()
     
     job_desc1 = []
@@ -100,8 +102,6 @@ def data():
     skills_df = skills_df.rename(columns={str(city1)+"_count":"city1", str(city2)+"_count":"city2"})
     skills_df = skills_df.fillna(value=0)
 
-
-    
     return jsonify(skills_df.to_dict(orient="records"))
 
 
