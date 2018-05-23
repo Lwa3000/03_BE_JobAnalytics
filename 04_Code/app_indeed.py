@@ -36,7 +36,7 @@ class DataAnalyticsJob(db.Model):
 @app.before_first_request
 def setup():
     # Recreate database each time for demo
-    db.drop_all()
+    #db.drop_all()
     db.create_all()
 
 
@@ -69,6 +69,32 @@ def scrape():
     return jsonify(positions_data)
 
 
+@app.route("/api/pals")
+def pals():
+    results = db.session.query(DataAnalyticsJob.title, DataAnalyticsJob.company, DataAnalyticsJob.location).all()
+
+    hover_text = [result[0] for result in results]
+    company = [result[1] for result in results]
+    location = [result[2] for result in results]
+
+    job_data = [{
+        "type": "scattergeo",
+        "locationmode": "USA-states",
+        "company": company,
+        "location": location,
+        "title": hover_text,
+        "text": hover_text,
+        "hoverinfo": "text",
+        "marker": {
+            "size": 50,
+            "line": {
+            "color": "rgb(8,8,8)",
+            "width": 1
+            },
+        }
+    }]
+
+    return jsonify(job_data)
+
 if __name__ == "__main__":
     app.run()
-    
