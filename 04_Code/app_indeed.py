@@ -13,7 +13,6 @@ import pandas as pd
 from skills_info import get_skills
 
 
-
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///db/datanalyticsjobs.sqlite"
@@ -39,7 +38,7 @@ class DataAnalyticsJob(db.Model):
 @app.before_first_request
 def setup():
     # Recreate database each time for demo
-    db.drop_all()
+    #db.drop_all()
     db.create_all()
 
 
@@ -136,10 +135,5 @@ def data():
     return jsonify(skills_df.to_dict(orient="records"))
 
 
-
-
-
-
 if __name__ == "__main__":
-    app.run()
-    
+    app.run() 
