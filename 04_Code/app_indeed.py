@@ -9,6 +9,9 @@ from flask_pymongo import PyMongo
 import scrape_page
 import flask_sqlalchemy
 from flask_sqlalchemy import SQLAlchemy
+import pandas as pd
+from skills_info import get_skills
+
 
 
 app = Flask(__name__)
@@ -67,6 +70,43 @@ def scrape():
          #   upsert=True
         #)
     return jsonify(positions_data)
+
+
+
+
+
+
+
+##### DOLLY ADDED CODE #####
+
+@app.route("/data")
+def data():
+    
+    city1 = "New York"
+    city2 = "San Francisco"
+    
+    results = db.session.query(DataAnalyticsJob.search_city, DataAnalyticsJob.description).all()
+    
+    job_desc1 = []
+    job_desc2 = []
+
+    [job_desc1.append(result[1]) for result in results if result[0] == city1]
+    [job_desc2.append(result[1]) for result in results if result[0] == city2]
+
+    city1_skills = get_skills(city1, job_desc1)
+    city2_skills = get_skills(city2, job_desc2)
+
+    skills_df = pd.merge(city1_skills, city2_skills, how='outer', on='skill_type', left_index=True, right_index=True)
+    skills_df = skills_df.rename(columns={str(city1)+"_count":"city1", str(city2)+"_count":"city2"})
+    skills_df = skills_df.fillna(value=0)
+
+
+    
+    return jsonify(skills_df.to_dict(orient="records"))
+
+
+
+
 
 
 if __name__ == "__main__":
