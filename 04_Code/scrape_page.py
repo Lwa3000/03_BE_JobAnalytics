@@ -7,7 +7,7 @@ import os
 import numpy as np
 
 def scrape(*args):
-    max_results_city = 10
+    max_results_city = 100
     step = 10
     job_search = "data+analyst"
     if args:

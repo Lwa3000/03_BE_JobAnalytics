@@ -11,7 +11,7 @@ function buildPlot() {
             x: response.map(data => data.skill_type),
             y: response.map(data => data.city1),
             marker: {
-                color: 'rgb(136,106,255)',
+                color: 'rgb(30, 210, 255)',
                 opacity: 1
             }
         };
@@ -22,7 +22,7 @@ function buildPlot() {
             x: response.map(data => data.skill_type),
             y: response.map(data => data.city2),
             marker: {
-                color: 'rgb(106,225,255)',
+                color: 'rgb(247,54,185)',
                 opacity: 1
               }
         };
@@ -30,8 +30,14 @@ function buildPlot() {
         var data = [trace1, trace2];
         
         var layout = {
+          title: 'Skills in Demand',
+          titlefont: {
+            size: 24,
+            color: 'rgb(242,242,242)'
+          },
             xaxis: {tickfont: {
-              color: 'rgb(107, 107, 107)'
+              size: 14,
+              color: 'rgb(242,242,242)'
             },
             tickangle: -45
           },
@@ -39,20 +45,28 @@ function buildPlot() {
               title: 'Number of Jobs',
               titlefont: {
                 size: 16,
-                color: 'rgb(107, 107, 107)'
+                color: 'rgb(242,242,242)'
               },
               titlefont: {
                 size: 16,
-                color: 'rgb(107, 107, 107)'
+                color: 'rgb(242,242,242)'
               },
               tickfont: {
                 size: 14,
-                color: 'rgb(107, 107, 107)'
+                color: 'rgb(242,242,242)'
               }
             },
+            legend: {
+              font: {
+                size: 16,
+                color: 'rgb(242,242,242)'
+              },
+            },
             barmode: 'group',
-            bargap: 0.15,
-            bargroupgap: 0.1
+            bargap: 0.2,
+            bargroupgap: 0.1,
+            paper_bgcolor: 'rgba(0,0,0,0)',
+            plot_bgcolor: 'rgba(0,0,0,0)',
           };
 
         Plotly.newPlot("barplot", data, layout);

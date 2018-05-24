@@ -85,10 +85,8 @@ def data():
     city1 = "New York"
     city2 = "San Francisco"
     
-    # results = db.session.query(DataAnalyticsJob.search_city, DataAnalyticsJob.description).all()
-
     results = db.session.query(DataAnalyticsJob.search_city, DataAnalyticsJob.description).all()
-    
+
     job_desc1 = []
     job_desc2 = []
 
