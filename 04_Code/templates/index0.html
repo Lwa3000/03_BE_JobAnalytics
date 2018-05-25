@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Hot Finds</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+
+<body>
+  <div class="container">
+
+    <div class="jumbotron text-center">
+      <h1>Data Analyst positions on Indeed</h1>
+      <p><a class="btn btn-primary btn-lg" href="/scrape" role="button">Get scrape results!</a></p>
+    </div>
+
+    <!-- Data Analyst positions -->
+    <div class="row" id="indeed-positions">
+      <div class="col-md-12">
+          <ul style="list-style: none;">
+              {% for pos in positions_1 %}
+              <li> <h4 class="heading">{{positions_1.title}} </h4>
+                <h5 class="heading">{{positions_1.company}} {{positions_1.location}} </h5>
+                <small>{{positions_1.summary}}</small><br/>
+                <small>{{positions_1.link}}</small><br/>
+              </li>
+              {% endfor %}
+          </ul>
+
+      </div>
+    </div>
+
+  </div>
+  <div id="plot"></div>
+    <script>// View 1 Fake chart: Top skills frequency by city
+      var trace1 = {
+          labels: ["beer", "wine", "martini", "margarita",
+              "ice tea", "rum & coke", "mai tai", "gin & tonic"],
+          values: [22.7, 17.1, 9.9, 8.7, 7.2, 6.1, 6.0, 4.6],
+          type: 'pie'
+        };
+        
+        var data = [trace1];
+        
+        var layout = {
+          title: "Fake 'Bar' Chart",
+        };
+        
+        Plotly.newPlot("plot", data, layout);
+
+        
+        
+        </script>
+        <div id="barplot"></div>
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+        <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+
+
+</body>
+
+</html>
+
