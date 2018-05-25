@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Bar example</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <div id="bar"></div>
+    <script>
+        Plotly.d3.json("/bar", function(error, data){
+            if (error) return console.warn(error);
+
+            var layout = {
+                margin: { t: 50 },
+                title: "Number of Job Postings per City",
+                xaxis: { title: "City"},
+                yaxis: { title: "# of Job Postings"}
+            };
+            var bar= document.getElementById("bar");
+            Plotly.plot(bar, data, layout)
+        })
+    </script>
+</body>
+</html>
