@@ -7,13 +7,7 @@ import os
 import numpy as np
 
 def scrape(*args):
-<<<<<<< HEAD
-    max_results_city = 10
-||||||| merged common ancestors
-    max_results_city = 130
-=======
     max_results_city = 100
->>>>>>> 92b07333220b7f652697325aa4f614ff06b50eb2
     step = 10
     job_search = "data+analyst"
     if args:

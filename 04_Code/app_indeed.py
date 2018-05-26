@@ -11,6 +11,7 @@ import flask_sqlalchemy
 from flask_sqlalchemy import SQLAlchemy
 import pandas as pd
 from skills_info import get_skills
+from cityLoc import run_location
 
 
 app = Flask(__name__)
@@ -39,7 +40,7 @@ class DataAnalyticsJob(db.Model):
 def setup():
     # Recreate database each time for demo
     #commenting part that drops db
-    #db.drop_all()
+    # db.drop_all()
     db.create_all()
 
 
@@ -54,6 +55,8 @@ def view2display():
 
 @app.route("/scrape")
 def scrape():
+    db.drop_all()
+    db.create_all()
     #positions = mongo.db.dataanalyst
     positions_data = scrape_page.scrape()
     print("Finalizing process..")
@@ -104,10 +107,6 @@ def view2_SF():
     return jsonify(plot2_data)
 
 
-
-
-
-
 ##### DOLLY ADDED CODE #####
 
 @app.route("/data")
@@ -130,10 +129,17 @@ def data():
     skills_df = pd.merge(city1_skills, city2_skills, how='outer', on='skill_type', left_index=True, right_index=True)
     skills_df = skills_df.rename(columns={str(city1)+"_count":"city1", str(city2)+"_count":"city2"})
     skills_df = skills_df.fillna(value=0)
-
-
     
     return jsonify(skills_df.to_dict(orient="records"))
+
+
+# Sarah's code 
+@app.route("/bar")
+def location():
+    cityLoc = run_location()
+
+    return jsonify(cityLoc)
+
 
 
 if __name__ == "__main__":
