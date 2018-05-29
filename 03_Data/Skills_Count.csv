@@ -1,0 +1,23 @@
+,skill_type,New York_count,San Francisco_count,New York_percent,San Francisco_percent
+0,SQL,55.0,71,55%,71%
+1,Python,29.0,48,29%,48%
+2,Tableau,24.0,36,24%,36%
+3,R,24.0,30,24%,30%
+4,SAS,17.0,13,17%,13%
+5,SPSS,9.0,10,9%,10%
+6,JavaScript,6.0,8,6%,8%
+7,MySQL,3.0,8,3%,8%
+8,Hadoop,3.0,7,3%,7%
+9,Looker,3.0,5,3%,5%
+10,XML,3.0,5,3%,5%
+11,HTML,2.0,3,2%,3%
+12,Java,2.0,3,2%,3%
+13,Perl,2.0,3,2%,3%
+14,Ruby,1.0,3,1%,3%
+15,VBA,1.0,3,1%,3%
+16,Matlab,1.0,3,1%,3%
+17,Scala,1.0,3,1%,3%
+18,D3.js,1.0,2,1%,2%
+19,HBase,1.0,2,1%,2%
+20,Hive,1.0,2,1%,2%
+21,NoSQL,1.0,2,1%,2%

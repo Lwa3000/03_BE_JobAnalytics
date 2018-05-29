@@ -127,8 +127,20 @@ def data():
     city2_skills = get_skills(city2, job_desc2)
 
     skills_df = pd.merge(city1_skills, city2_skills, how='outer', on='skill_type', left_index=True, right_index=True)
-    skills_df = skills_df.rename(columns={str(city1)+"_count":"city1", str(city2)+"_count":"city2"})
-    skills_df = skills_df.fillna(value=0)
+    
+    skills_df = skills_df.dropna()
+
+    skills_csv = skills_df
+    city1_perc = (skills_csv[str(city1)+"_count"] / len(job_desc1))
+    city2_perc = (skills_csv[str(city2)+"_count"] / len(job_desc2))
+    
+    skills_csv[str(city1) + "_percent"] = ["{:,.0f}%".format(i*100) for i in city1_perc]
+    skills_csv[str(city2) + "_percent"] = ["{:,.0f}%".format(i*100) for i in city2_perc]
+    skills_csv.to_csv("../03_Data/Skills_Count.csv")
+
+    skills_df = skills_csv.rename(columns={str(city1)+"_count":"city1", str(city2)+"_count":"city2",
+                                            str(city1)+"_percent":"city1_perc", str(city2)+"_percent":"city2_perc"})
+   
     
     return jsonify(skills_df.to_dict(orient="records"))
 

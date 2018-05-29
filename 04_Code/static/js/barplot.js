@@ -35,22 +35,57 @@ function buildPlot() {
             size: 24,
             color: 'rgb(242,242,242)'
           },
-            xaxis: {tickfont: {
+            xaxis: {
+              showgrid: false,
+              zeroline: true,
+              showline: true,
+              // mirror: 'ticks',
+              gridcolor: 'rgb(242,242,242)',
+              gridwidth: 2,
+              zerolinecolor: 'rgb(242,242,242)',
+              zerolinewidth: 2,
+              linecolor: 'rgb(242,242,242)',
+              linewidth: 2,
+              autotick: false,
+              ticks: 'outside',
+              tick0: 0,
+              // dtick: 10,
+              ticklen: 4,
+              tickwidth: 4,
+              tickcolor: 'rgb(242,242,242)',
+              tickfont: {
               size: 14,
               color: 'rgb(242,242,242)'
             },
             tickangle: -45
           },
             yaxis: {
+              showgrid: false,
+              zeroline: true,
+              showline: true,
+              // mirror: 'ticks',
+              gridcolor: 'rgb(242,242,242)',
+              gridwidth: 2,
+              zerolinecolor: 'rgb(242,242,242)',
+              zerolinewidth: 2,
+              linecolor: 'rgb(242,242,242)',
+              linewidth: 2,
               title: 'Number of Jobs',
               titlefont: {
-                size: 16,
+                size: 14,
                 color: 'rgb(242,242,242)'
               },
               titlefont: {
-                size: 16,
+                size: 14,
                 color: 'rgb(242,242,242)'
               },
+              autotick: true,
+              ticks: 'outside',
+              tick0: 0,
+              // dtick: 10,
+              ticklen: 4,
+              tickwidth: 4,
+              tickcolor: 'rgb(242,242,242)',
               tickfont: {
                 size: 14,
                 color: 'rgb(242,242,242)'
@@ -65,7 +100,7 @@ function buildPlot() {
             barmode: 'group',
             bargap: 0.2,
             bargroupgap: 0.1,
-            paper_bgcolor: 'rgba(0,0,0,0)',
+            paper_bgcolor: '#2e2e2e',
             plot_bgcolor: 'rgba(0,0,0,0)',
           };
 
