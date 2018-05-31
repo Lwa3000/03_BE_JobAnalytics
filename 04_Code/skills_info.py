@@ -69,7 +69,7 @@ def get_skills(city, job_desc):
 
         skills_dict = Counter({
                                     "Java": doc_frequency["java"], 
-                                    "Excel": doc_frequency["excel"],
+                                    # "Excel": doc_frequency["excel"],
                                     "VBA": doc_frequency["vba"],
                                     "D3.js": doc_frequency["d3.js"],
                                     "C++": doc_frequency["c++"], 
@@ -87,8 +87,8 @@ def get_skills(city, job_desc):
                                     "XML": doc_frequency["xml"],
                                     "Julia": doc_frequency["julia"], 
                                     "Scala": doc_frequency["scala"],
-                                    # "Tableau": doc_frequency["tableau"],
-                                    # "Looker": doc_frequency["looker"],
+                                    "Tableau": doc_frequency["tableau"],
+                                    "Looker": doc_frequency["looker"],
                                     "Hadoop": doc_frequency["hadoop"], 
                                     "Spark": doc_frequency["spark"], 
                                     "MySQL": doc_frequency["mysql"],

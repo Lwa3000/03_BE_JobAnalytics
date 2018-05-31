@@ -10,7 +10,18 @@ function buildPlot2() {
         var data = [response]
 
         var layout = {
-            title: "V2: Breakdown of Data Analyst titles NY"
+            title: "V2: Breakdown of Data Analyst titles NY",
+            titlefont: {
+                size: 16,
+                color: 'rgb(242,242,242)'
+            },
+            legend: {
+                font: {
+                    color: 'rgb(242,242,242)'
+                }
+            },
+            paper_bgcolor: '#2e2e2e',
+            plot_bgcolor: 'rgba(0,0,0,0)'
             // width: 800 px
             // height: 500 px
         };
@@ -26,7 +37,18 @@ function buildPlot2() {
         var data = [response]
 
         var layout = {
-            title: "V2: Breakdown of Data Analyst titles SF"
+            title: "V2: Breakdown of Data Analyst titles SF",
+            titlefont: {
+                size: 16,
+                color: 'rgb(242,242,242)'
+            },
+            legend: {
+                font: {
+                    color: 'rgb(242,242,242)'
+                }
+            },
+            paper_bgcolor: '#2e2e2e',
+            plot_bgcolor: 'rgba(0,0,0,0)'
             // width: 800 px
             // height: 500 px
         };

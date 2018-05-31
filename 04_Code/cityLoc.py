@@ -31,7 +31,7 @@ def run_location():
 
 
 # this is your x axis on line 31
-    x = ["New York", "Brooklyn", "Manhattan", "Upton", "San Francisco", "Redwood City", "Oakland", "San Mateo", "San Bruno", "Foster City", "South San Francisco"]
+    x = ["New York", "Brooklyn", "Manhattan", "Upton", "San Francisco", "Redwood City", "Oakland", "San Mateo", "San Bruno", "Foster City"]
 
 
     location_count = job_filtered["City"].value_counts()
@@ -62,7 +62,11 @@ def run_location():
     data = [{
         "x": x,
         "y": y,
-        "type": "bar" 
+        "type": "bar" ,
+        "marker": {
+        "color": ['#1ED2FF', '#00A7D2', '#007EA7', '#00577E', '#F736B9', '#FFBBFF', '#EB24AE', '#D3009A', '#B0007B', '#8E005E', '#6C0043'],
+        "opacity": 1
+            }
         }]
 
     return data
