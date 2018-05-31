@@ -112,7 +112,6 @@ def get_view2_data(results):
     location = [result[1] for result in results]
     view2=pd.DataFrame({"Title": title, "Location":location})
 
-    print(view2)
     grouped_view2=view2.groupby("Title")
     count=grouped_view2.count()
     total=count["Location"].sum()
@@ -121,5 +120,14 @@ def get_view2_data(results):
         "Total": total,
         "Percentage": count["Location"]/total*100
     })
-    return view2_summary_table
+    df2=view2_summary_table.sort_values(["Percentage"], ascending=False)
+    top_df=df2.iloc[0:9,0:3]
+    bottom_df=df2.iloc[9:,0:3]
+    bottom_per=bottom_df["Percentage"].sum()
+    bottom_count=bottom_df["Count"].sum()
+    top_df=top_df.reset_index()
+    df_add=pd.DataFrame({"Title":"Others","Percentage": [bottom_per], "Count":[bottom_count], "Total":[100]})
+    top_df=top_df.append(df_add)
+
+    return top_df
 
