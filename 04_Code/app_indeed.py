@@ -83,7 +83,7 @@ def view2_NY():
     results = db.session.query(DataAnalyticsJob.title, DataAnalyticsJob.location).filter_by(search_city="New York")
     view2_data = scrape_page.get_view2_data(results)
     # print(view2_data)
-    titles = list(view2_data.index)
+    titles = list(view2_data["Title"])
     percentages = list(view2_data["Percentage"])
     plot2_data = {
         "labels": titles,
@@ -97,7 +97,7 @@ def view2_SF():
     results = db.session.query(DataAnalyticsJob.title, DataAnalyticsJob.location).filter_by(search_city="San Francisco")
     view2_data = scrape_page.get_view2_data(results)
     # print(view2_data)
-    titles = list(view2_data.index)
+    titles = list(view2_data["Title"])
     percentages = list(view2_data["Percentage"])
     plot2_data = {
         "labels": titles,
